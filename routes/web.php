@@ -18,7 +18,16 @@ Route::get('/', function () {
 });
 
 Route::get('/hello', function () {
-    return "Hai";
+    return 'Hai';
+});
+
+//Route::view('/hello', 'hello', ['name' => 'John Doe']);
+Route::get('/hello-view', function () {
+    return view('hello', ['name' => 'John Doe']);
+});
+
+Route::get('/world', function () {
+    return view('hello.world', ['name' => 'John Doe']);
 });
 
 Route::redirect('/hi', '/hello');
