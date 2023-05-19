@@ -16,3 +16,13 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::get('/hello', function () {
+    return "Hai";
+});
+
+Route::redirect('/hi', '/hello');
+
+Route::fallback(function() {
+    return "404 Not Found";
+});
