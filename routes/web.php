@@ -95,6 +95,10 @@ Route::get('/response/type/json', [App\Http\Controllers\ResponseController::clas
 Route::get('/response/type/file', [App\Http\Controllers\ResponseController::class, 'responseFile']);
 Route::get('/response/type/download', [App\Http\Controllers\ResponseController::class, 'responseDownload']);
 
+Route::get('/cookie/set', [App\Http\Controllers\CookieController::class, 'createCookie']);
+Route::get('/cookie/get', [App\Http\Controllers\CookieController::class, 'getCookie']);
+Route::get('/cookie/clear', [App\Http\Controllers\CookieController::class, 'clearCookie']);
+
 Route::fallback(function () {
     return "404 Not Found";
 });
