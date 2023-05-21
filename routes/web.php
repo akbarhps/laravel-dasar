@@ -66,30 +66,23 @@ Route::get('/product-redirect/{id}', function (string $id) {
 });
 
 Route::get('/controller/hello/request', [App\Http\Controllers\HelloController::class, 'request']);
-
 Route::get('/controller/hello/{name}', [App\Http\Controllers\HelloController::class, 'hello']);
 
 Route::get('/input/hello', [App\Http\Controllers\InputController::class, 'hello']);
 Route::post('/input/hello', [App\Http\Controllers\InputController::class, 'hello']);
-
 Route::post('/input/hello/first', [App\Http\Controllers\InputController::class, 'helloFirst']);
-
 Route::post('/input/hello/input', [App\Http\Controllers\InputController::class, 'helloInput']);
-
 Route::post('/input/hello/array', [App\Http\Controllers\InputController::class, 'arrayInput']);
-
 Route::post('/input/hello/type', [App\Http\Controllers\InputController::class, 'inputType']);
-
 Route::post('/input/filter/only', [App\Http\Controllers\InputController::class, 'filterOnly']);
 Route::post('/input/filter/except', [App\Http\Controllers\InputController::class, 'filterExcept']);
-
 Route::post('/input/filter/merge', [App\Http\Controllers\InputController::class, 'filterMerge']);
 
-Route::post('/file/upload', [App\Http\Controllers\FileController::class, 'upload']);
+Route::post('/file/upload', [App\Http\Controllers\FileController::class, 'upload'])
+    ->withoutMiddleware([\App\Http\Middleware\VerifyCsrfToken::class]);
 
 Route::get('/response/hello', [App\Http\Controllers\ResponseController::class, 'response']);
 Route::get('/response/header', [App\Http\Controllers\ResponseController::class, 'header']);
-
 Route::get('/response/type/view', [App\Http\Controllers\ResponseController::class, 'responseView']);
 Route::get('/response/type/json', [App\Http\Controllers\ResponseController::class, 'responseJSON']);
 Route::get('/response/type/file', [App\Http\Controllers\ResponseController::class, 'responseFile']);
@@ -101,13 +94,19 @@ Route::get('/cookie/clear', [App\Http\Controllers\CookieController::class, 'clea
 
 Route::get('/redirect/from', [App\Http\Controllers\RedirectController::class, 'redirectFrom']);
 Route::get('/redirect/to', [App\Http\Controllers\RedirectController::class, 'redirectTo']);
-
 Route::get('/redirect/name', [App\Http\Controllers\RedirectController::class, 'redirectName']);
 Route::get('/redirect/action', [App\Http\Controllers\RedirectController::class, 'redirectAction']);
+Route::get('/redirect/away', [App\Http\Controllers\RedirectController::class, 'redirectAway']);
 Route::get('/redirect/name/{name}', [App\Http\Controllers\RedirectController::class, 'redirectHello'])
     ->name('redirect-hello');
 
-Route::get('/redirect/away', [App\Http\Controllers\RedirectController::class, 'redirectAway']);
+Route::get('/middleware/api', function () {
+    return "OK";
+})->middleware(['contoh:api,401']);
+
+Route::get('/middleware/group', function () {
+    return "GROUP";
+})->middleware(['contoh-group']);
 
 Route::fallback(function () {
     return "404 Not Found";
