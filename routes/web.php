@@ -108,6 +108,9 @@ Route::get('/middleware/group', function () {
     return "GROUP";
 })->middleware(['contoh-group']);
 
+Route::get('/form', [App\Http\Controllers\FormController::class, 'form']);
+Route::post('/form', [App\Http\Controllers\FormController::class, 'submitForm']);
+
 Route::fallback(function () {
     return "404 Not Found";
 });
