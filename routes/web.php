@@ -111,7 +111,7 @@ Route::prefix('/redirect')
         Route::get('/away', 'redirectAway');
         Route::get('/name/{name}', 'redirectHello')
             ->name('redirect-hello');
-        Route::get('/named', function() {
+        Route::get('/named', function () {
 //            return route('redirect-hello', ['name' => 'John Doe']);
 //            return url()->route('redirect-hello', ['name' => 'John Doe']);
             return \Illuminate\Support\Facades\URL::route('redirect-hello', ['name' => 'John']);
@@ -134,11 +134,14 @@ Route::get('/url/full', function () {
     return \Illuminate\Support\Facades\URL::full();
 });
 
-Route::get('/url/action', function() {
+Route::get('/url/action', function () {
 //    return action([\App\Http\Controllers\FormController::class, 'form'], []);
 //    return url()->action([\App\Http\Controllers\FormController::class, 'form'], []);
     return \Illuminate\Support\Facades\URL::action([\App\Http\Controllers\FormController::class, 'form'], []);
 });
+
+Route::get('/session/create', [App\Http\Controllers\SessionController::class, 'createSession']);
+Route::get('/session/get', [App\Http\Controllers\SessionController::class, 'getSession']);
 
 Route::fallback(function () {
     return "404 Not Found";
