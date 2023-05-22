@@ -111,6 +111,11 @@ Route::prefix('/redirect')
         Route::get('/away', 'redirectAway');
         Route::get('/name/{name}', 'redirectHello')
             ->name('redirect-hello');
+        Route::get('/named', function() {
+//            return route('redirect-hello', ['name' => 'John Doe']);
+//            return url()->route('redirect-hello', ['name' => 'John Doe']);
+            return \Illuminate\Support\Facades\URL::route('redirect-hello', ['name' => 'John']);
+        });
     });
 
 Route::middleware(['contoh:api,401'])->group(function () {
@@ -122,16 +127,18 @@ Route::middleware(['contoh:api,401'])->group(function () {
     });
 });
 
-//Route::get('/middleware/api', function () {
-//    return "OK";
-//})->middleware(['contoh:api,401']);
-//
-//Route::get('/middleware/group', function () {
-//    return "GROUP";
-//})->middleware(['contoh-group']);
-
 Route::get('/form', [App\Http\Controllers\FormController::class, 'form']);
 Route::post('/form', [App\Http\Controllers\FormController::class, 'submitForm']);
+
+Route::get('/url/full', function () {
+    return \Illuminate\Support\Facades\URL::full();
+});
+
+Route::get('/url/action', function() {
+//    return action([\App\Http\Controllers\FormController::class, 'form'], []);
+//    return url()->action([\App\Http\Controllers\FormController::class, 'form'], []);
+    return \Illuminate\Support\Facades\URL::action([\App\Http\Controllers\FormController::class, 'form'], []);
+});
 
 Route::fallback(function () {
     return "404 Not Found";
