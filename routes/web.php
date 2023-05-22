@@ -143,6 +143,23 @@ Route::get('/url/action', function () {
 Route::get('/session/create', [App\Http\Controllers\SessionController::class, 'createSession']);
 Route::get('/session/get', [App\Http\Controllers\SessionController::class, 'getSession']);
 
+Route::get('/error/sample', function () {
+    throw new Exception('Sample error');
+});
+
+Route::get('/error/manual', function () {
+    report(new Exception('Sample error'));
+    return "Error reported";
+});
+
+Route::get('/error/except', function () {
+    throw new \App\Exceptions\ValidationException('Validation error');
+});
+
+Route::get('/about/400', function () {
+    abort(400, 'kamu siapa?');
+});
+
 Route::fallback(function () {
     return "404 Not Found";
 });
